@@ -2,7 +2,7 @@
 using PROG8051_A3_User;
 namespace PROG8051_A3_Account
 {
-    public abstract class Account : ITradable
+    public abstract class Account
     {
         // Attributes
         private List<User> owners;
@@ -22,8 +22,8 @@ namespace PROG8051_A3_Account
 
         // Methods
 
-        public abstract void Buy();
-        public abstract void Sell();
+        //public abstract void Buy();
+        //public abstract void Sell();
         public override abstract string ToString();
     }
 }

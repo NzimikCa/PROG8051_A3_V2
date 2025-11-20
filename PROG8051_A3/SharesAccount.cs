@@ -1,7 +1,7 @@
-﻿using PROG8051_A3_Account;
+﻿using PROG8051_A3_ITradable;
 namespace PROG8051_A3_SharesAccount
 {
-    public class SharesAccount : Account
+    public class SharesAccount : ITradable
     {
         // Attributes
 
