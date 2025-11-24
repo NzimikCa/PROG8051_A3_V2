@@ -1,25 +1,54 @@
 ﻿using PROG8051_A3_Account; 
 using PROG8051_A3_IConnection;
+using System.Formats.Asn1;
 namespace PROG8051_A3_User
 {
     public class User : IConnection
     {
         // Attributes
-        string username;
-        string password;
-        string name;
-        List<Account> accounts;
+        private string username;
+        private string password;
+        private string name;
+        private List<Account> accounts;
         // Constructors
-        public User(string usernameProvided, string passwordProvided, string nameProvided, List<Account> accountsProvided)
+        public User(string usernameProvided, string passwordProvided, string nameProvided)
         {
             this.username = usernameProvided;
             this.password = passwordProvided;
             this.name = nameProvided;
-            this.accounts = accountsProvided;
+            this.accounts = new List<Account>();//empty list created to store
         }
         // Properties
+        public string Username
+        {
+            get { return this.username; }
+        }
+        public string Name
+        {
+            get { return this.name; }
+        }
+        
+        // Methods
+        public bool ConnectUser(string passwordProvided)
+        {
+            if (passwordProvided == this.password)
+            {
+                Console.WriteLine($"Connected to the payment gateway. Welcome {this.name}. ");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine($"Failed to connect user {this.Username}: Incorrect Password.");
+                return false;
+            }
+        }
+
+        public void DisconnectUser()
+        {
+            Console.WriteLine($"Disconnected user {this.name} to the payment gateway.");
+        }
         public Account AccountAccess(uint idProvided)
-            // Returns Account instance corresponding to the ID entered, null if no matching account
+        // Returns Account instance corresponding to the ID entered, null if no matching account
         {
             Account accountAccessed = null;
             foreach (Account acct in accounts)
@@ -32,34 +61,31 @@ namespace PROG8051_A3_User
             }
             return accountAccessed;
         }
-        // Methods
-        public bool ConnectUser(string passwordProvided)
+        public void ViewAccounts()
         {
-            if (passwordProvided == this.password)
+            if(accounts.Count == 0)
             {
-                Console.WriteLine($"Connected to the payment gateway. Welcome {this.name}. ");
-                return true;
+                Console.WriteLine($"{this.Username} has no accounts");
             }
             else
             {
-                Console.WriteLine($"Failed to connect user: Incorrect Password.");
-                return false;
+                Console.WriteLine($"{this.Username} accounts:");
+                foreach (Account acct in this.accounts)
+                {
+                    Console.WriteLine(acct);
+                }
             }
         }
-
-        public void DisconnectUser()
+        // to get all accounts associated with a user
+        public List<Account> GetAccounts()
         {
-            Console.WriteLine($"Disconnected user {this.name} to the payment gateway.");
+            return this.accounts;
         }
-        public void ViewAccounts()
+        public void AddAccount(Account acc)
         {
-            foreach (Account acct in this.accounts){
-                Console.WriteLine(acct);
-            }
+            this.accounts.Add(acc);
         }
-
-
-
+        
 
     }
 }

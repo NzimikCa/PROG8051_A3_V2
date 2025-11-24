@@ -1,5 +1,4 @@
-﻿using PROG8051_A3_ITradable;
-using PROG8051_A3_User;
+﻿using PROG8051_A3_User;
 namespace PROG8051_A3_Account
 {
     public abstract class Account
@@ -7,23 +6,22 @@ namespace PROG8051_A3_Account
         // Attributes
         private List<User> owners;
         bool isShared;
-        private uint id;
+        private uint accountId;
+        string currency;
         // Constructors
-        public Account(List<User> ownersProvided, uint idProvided)
+        public Account(List<User> ownersProvided, uint idProvided, string providedCurrency)
         {
             this.owners = ownersProvided;
             this.isShared = owners.Count > 1;
-            this.id = idProvided;
+            this.accountId = idProvided;
+            this.currency = providedCurrency;
         }
         // Properties
         public List<User> Owners { get { return this.owners; } }
         public string IsShared { get { return isShared ? "This is a shared account." : "This is not a shared account"; } }
-        public uint Id { get { return this.id; } }
+        public uint Id { get { return this.accountId; } }
 
         // Methods
-
-        //public abstract void Buy();
-        //public abstract void Sell();
         public override abstract string ToString();
     }
 }
